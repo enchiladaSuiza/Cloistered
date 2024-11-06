@@ -1,10 +1,182 @@
-[gd_scene load_steps=4 format=3 uid="uid://cbsfm6g5umn8h"]
+[gd_scene load_steps=22 format=3 uid="uid://cbsfm6g5umn8h"]
 
-[ext_resource type="Texture2D" uid="uid://b1te20nnr6gcg" path="res://icon.svg" id="1_j0ome"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_xe0oc"]
+[ext_resource type="Texture2D" uid="uid://ddeicrwler6it" path="res://assets/player.png" id="2_jt1s3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ts0em"]
 radius = 8.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ygop"]
+atlas = ExtResource("2_jt1s3")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d2h3c"]
+atlas = ExtResource("2_jt1s3")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hx4hu"]
+atlas = ExtResource("2_jt1s3")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sxig2"]
+atlas = ExtResource("2_jt1s3")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8qhgh"]
+atlas = ExtResource("2_jt1s3")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_px5yw"]
+atlas = ExtResource("2_jt1s3")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vqe2p"]
+atlas = ExtResource("2_jt1s3")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q212t"]
+atlas = ExtResource("2_jt1s3")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_34rnt"]
+atlas = ExtResource("2_jt1s3")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5sldj"]
+atlas = ExtResource("2_jt1s3")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2tlpf"]
+atlas = ExtResource("2_jt1s3")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36g6j"]
+atlas = ExtResource("2_jt1s3")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gnjlh"]
+atlas = ExtResource("2_jt1s3")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oevse"]
+atlas = ExtResource("2_jt1s3")
+region = Rect2(64, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w7hld"]
+atlas = ExtResource("2_jt1s3")
+region = Rect2(64, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c2ov5"]
+atlas = ExtResource("2_jt1s3")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4rtf"]
+atlas = ExtResource("2_jt1s3")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5liea"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ygop")
+}],
+"loop": true,
+"name": &"idle_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d2h3c")
+}],
+"loop": true,
+"name": &"idle_side",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hx4hu")
+}],
+"loop": true,
+"name": &"idle_sidedown",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sxig2")
+}],
+"loop": true,
+"name": &"idle_sideup",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8qhgh")
+}],
+"loop": true,
+"name": &"idle_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_px5yw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vqe2p")
+}],
+"loop": true,
+"name": &"walking_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q212t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_34rnt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5sldj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2tlpf")
+}],
+"loop": true,
+"name": &"walking_side",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_36g6j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gnjlh")
+}],
+"loop": true,
+"name": &"walking_sidedown",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oevse")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w7hld")
+}],
+"loop": true,
+"name": &"walking_sideup",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c2ov5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d4rtf")
+}],
+"loop": true,
+"name": &"walking_up",
+"speed": 5.0
+}]
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_xe0oc")
@@ -12,11 +184,7 @@ script = ExtResource("1_xe0oc")
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ts0em")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.125, 0.125)
-texture = ExtResource("1_j0ome")
-
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera" type="Camera2D" parent="."]
 limit_left = -1000
 limit_top = -1000
 limit_right = 1000
@@ -24,3 +192,7 @@ limit_bottom = 1000
 limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
+
+[node name="Animations" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_5liea")
+animation = &"idle_down"
