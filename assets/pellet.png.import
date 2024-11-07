@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjs6kxdue1kon"
-path="res://.godot/imported/stone.png-3a1875e621a1b764516a9ea0026422f2.ctex"
+uid="uid://bxf28y2lphiim"
+path="res://.godot/imported/pellet.png-b2d21020943951763d9a948b9b099a27.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/stone.png"
-dest_files=["res://.godot/imported/stone.png-3a1875e621a1b764516a9ea0026422f2.ctex"]
+source_file="res://assets/pellet.png"
+dest_files=["res://.godot/imported/pellet.png-b2d21020943951763d9a948b9b099a27.ctex"]
 
 [params]
 

@@ -1,46 +1,48 @@
 extends CharacterBody2D
 
-@export var speed: float = 10000.0
+@export var speed: float = 8500.0
 
-var current_direction: Vector2
-var last_direction: Vector2 = Vector2(0, 1)
+var moving_direction: Vector2
+var last_moving_direction: Vector2 = Vector2(0, 1)
 var animation_name: String
 
+var pellet_scene := preload("res://scenes/pellet.tscn")
+
 func _physics_process(delta):
-	current_direction = Input.get_vector(
+	moving_direction = Input.get_vector(
 		"move_left", "move_right", "move_up", "move_down")
 	update_animation()
 	
-	self.velocity = current_direction * speed * delta
+	var firing_direction = Input.get_vector(
+		"attack_left", "attack_right", "attack_up", "attack_down")
+	handle_firing(firing_direction)
+	
+	self.velocity = moving_direction * speed * delta
 	move_and_slide()
 
 func update_animation():
-	var x: int
-	var y: int
-	if current_direction:
-		x = current_direction.x as int
-		y = current_direction.y as int
-		var horizontal_name = ""
-		var vertical_name = ""
-		if x != 0:
-			horizontal_name = "side"
-		if y > 0:
-			vertical_name = "down"
-		elif y < 0:
-			vertical_name = "up"
-		animation_name = "walking_" + horizontal_name + vertical_name
-		last_direction = current_direction
-		$Animations.flip_h = current_direction.x < 0
+	var direction: Vector2
+	if moving_direction:
+		animation_name = "walking_"
+		direction = moving_direction
+		last_moving_direction = moving_direction
+		$Animations.flip_h = moving_direction.x < 0
 	else:
-		x = last_direction.x as int
-		y = last_direction.y as int
-		var horizontal_name = ""
-		var vertical_name = ""
-		if x != 0:
-			horizontal_name = "side"
-		if y > 0:
-			vertical_name = "down"
-		elif y < 0:
-			vertical_name = "up"
-		animation_name = "idle_" + horizontal_name + vertical_name
+		animation_name = "idle_"
+		direction = last_moving_direction
+	if direction.x != 0:
+		animation_name += "side"
+	if direction.y > 0:
+		animation_name += "down"
+	elif direction.y < 0:
+		animation_name += "up"
+
 	$Animations.play(animation_name)
+
+func handle_firing(direction):
+	if not direction:
+		return
+	var pellet = pellet_scene.instantiate()
+	pellet.position = self.position
+	pellet.direction = direction
+	get_parent().add_child(pellet)
