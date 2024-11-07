@@ -5,6 +5,7 @@ extends CharacterBody2D
 var moving_direction: Vector2
 var last_moving_direction: Vector2 = Vector2(0, 1)
 var animation_name: String
+var can_fire: bool = true
 
 var pellet_scene := preload("res://scenes/pellet.tscn")
 
@@ -40,9 +41,14 @@ func update_animation():
 	$Animations.play(animation_name)
 
 func handle_firing(direction):
-	if not direction:
+	if not can_fire or not direction:
 		return
 	var pellet = pellet_scene.instantiate()
 	pellet.position = self.position
 	pellet.direction = direction
+	can_fire = false
+	$FiringTimer.start()
 	get_parent().add_child(pellet)
+
+func _on_firing_timer_timeout():
+	can_fire = true

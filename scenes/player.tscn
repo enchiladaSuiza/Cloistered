@@ -198,4 +198,8 @@ position_smoothing_speed = 8.0
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5liea")
 animation = &"idle_down"
-frame_progress = 0.721855
+frame_progress = 0.986295
+
+[node name="FiringTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="FiringTimer" to="." method="_on_firing_timer_timeout"]
