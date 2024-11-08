@@ -1,0 +1,84 @@
+[gd_scene load_steps=9 format=3 uid="uid://ddhr1robnyo3g"]
+
+[ext_resource type="Texture2D" uid="uid://qnhn4ksdig51" path="res://assets/snake.png" id="1_j6mxb"]
+[ext_resource type="Script" path="res://scenes/enemies/snake.gd" id="1_p527r"]
+[ext_resource type="PackedScene" uid="uid://b1imo3djyf5ek" path="res://scenes/components/hurtbox.tscn" id="3_duijx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_caokp"]
+radius = 6.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cpwu3"]
+atlas = ExtResource("1_j6mxb")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_32q4y"]
+atlas = ExtResource("1_j6mxb")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ukw0"]
+atlas = ExtResource("1_j6mxb")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0lxda"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cpwu3")
+}],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_32q4y")
+}],
+"loop": true,
+"name": &"side",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ukw0")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
+
+[node name="Snake" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_p527r")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_caokp")
+
+[node name="Animations" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_0lxda")
+animation = &"down"
+
+[node name="Hurtbox" parent="." instance=ExtResource("3_duijx")]
+hp = 3
+
+[node name="WaitTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="MoveTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="FrameTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="DamageTintTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[connection signal="hp_changed" from="Hurtbox" to="." method="_on_hurtbox_hp_changed"]
+[connection signal="timeout" from="WaitTimer" to="." method="_on_wait_timer_timeout"]
+[connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]
+[connection signal="timeout" from="FrameTimer" to="." method="_on_frame_timer_timeout"]
+[connection signal="timeout" from="DamageTintTimer" to="." method="_on_damage_tint_timer_timeout"]
+
+[editable path="Hurtbox"]

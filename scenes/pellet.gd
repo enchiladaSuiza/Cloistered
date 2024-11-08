@@ -1,4 +1,4 @@
-extends Area2D
+extends Node2D
 
 @export var speed: float = 500.0
 var direction := Vector2.ZERO:
@@ -13,3 +13,6 @@ func _process(delta):
 	self.position += direction * speed * delta
 	if abs(position.x) > live_length or abs(position.y) > live_height:
 		queue_free() 
+
+func _on_damagebox_hit() -> void:
+	queue_free()
