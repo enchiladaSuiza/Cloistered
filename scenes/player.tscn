@@ -266,11 +266,8 @@ radius = 6.0
 size = Vector2(18, 18)
 
 [node name="Player" type="CharacterBody2D"]
-collision_mask = 6
+collision_mask = 14
 script = ExtResource("1_xe0oc")
-speed = null
-hp = null
-max_hp = null
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5liea")

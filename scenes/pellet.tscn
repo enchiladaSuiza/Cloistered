@@ -11,7 +11,9 @@ script = ExtResource("1_67inn")
 texture = ExtResource("1_djg2w")
 
 [node name="Damagebox" parent="." instance=ExtResource("3_vnatu")]
+collision_layer = 0
 
+[connection signal="entered_collision" from="Damagebox" to="." method="_on_damagebox_entered_collision"]
 [connection signal="hit" from="Damagebox" to="." method="_on_damagebox_hit"]
 
 [editable path="Damagebox"]

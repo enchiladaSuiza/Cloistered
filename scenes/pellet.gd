@@ -24,3 +24,8 @@ func ignore_area(area: Area2D):
 
 func _on_damagebox_hit(area: Area2D) -> void:
 	queue_free()
+
+func _on_damagebox_entered_collision(body: Node2D) -> void:
+	if body is TileMapLayer:
+		queue_free()
+	

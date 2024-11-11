@@ -76,3 +76,4 @@ func _on_hurtbox_damage_taken(damage):
 	hp -= damage
 	if hp <= 0:
 		die()
+		

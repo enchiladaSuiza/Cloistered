@@ -24,3 +24,6 @@ func _on_area_entered(area: Area2D) -> void:
 func _on_area_exited(area):
 	if area is Damage:
 		damage_areas_inside.erase(area)
+
+func _on_body_entered(body: Node2D) -> void:
+	pass # Replace with function body.

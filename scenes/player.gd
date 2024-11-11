@@ -4,6 +4,7 @@ class_name Player
 
 signal hp_changed(value)
 signal max_hp_changed(value)
+signal coordinates_changed(coords: Vector2)
 
 @export var speed: float = 8500.0
 @export var hp: float = 10:
@@ -34,6 +35,9 @@ func _physics_process(delta):
 	
 	self.velocity = moving_direction * speed * delta
 	move_and_slide()
+	if moving_direction:
+		#coordinates_changed.emit(self.position)
+		print(self.position)
 
 func _input(event):
 	if event.is_action_pressed("interact"):
@@ -127,3 +131,9 @@ func die():
 func _on_interaction_area_area_entered(area):
 	if area is Interactable:
 		immediate_interactable = area
+		
+func set_camera_limits(left, top, right, bottom):
+	$Camera.limit_left = left
+	$Camera.limit_top = top
+	$Camera.limit_right = right
+	$Camera.limit_bottom = bottom
