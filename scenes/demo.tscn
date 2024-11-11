@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=4 uid="uid://bxg0a4btt6dvj"]
+[gd_scene load_steps=8 format=4 uid="uid://bxg0a4btt6dvj"]
 
 [ext_resource type="Texture2D" uid="uid://du8made01qah" path="res://assets/tiles16.png" id="1_4voux"]
 [ext_resource type="PackedScene" uid="uid://cbsfm6g5umn8h" path="res://scenes/player.tscn" id="1_t3mbr"]
 [ext_resource type="PackedScene" uid="uid://ddhr1robnyo3g" path="res://scenes/enemies/snake.tscn" id="3_7p6ev"]
+[ext_resource type="PackedScene" uid="uid://btx8m8pbpb4tm" path="res://scenes/hud.tscn" id="4_00i24"]
+[ext_resource type="PackedScene" uid="uid://dxnnhudphnkbp" path="res://scenes/door.tscn" id="5_hhsjj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6ji3w"]
 texture = ExtResource("1_4voux")
@@ -49,3 +51,9 @@ tile_set = SubResource("TileSet_x41xk")
 
 [node name="Snake" parent="." instance=ExtResource("3_7p6ev")]
 position = Vector2(0, -56)
+
+[node name="HUD" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_00i24")]
+player = NodePath("../Player")
+
+[node name="Door" parent="." instance=ExtResource("5_hhsjj")]
+position = Vector2(0, -192)

@@ -1,11 +1,24 @@
 extends CharacterBody2D
 
+class_name Player
+
+signal hp_changed(value)
+signal max_hp_changed(value)
+
 @export var speed: float = 8500.0
+@export var hp: float = 10:
+	get():
+		return hp
+@export var max_hp: float = 10:
+	get():
+		return max_hp
 
 var moving_direction: Vector2
 var firing_direction: Vector2
 var last_moving_direction: Vector2 = Vector2(0, 1)
 var can_fire: bool = true
+var invincible: bool = false
+var immediate_interactable: Interactable
 
 var pellet_scene := preload("res://scenes/pellet.tscn")
 
@@ -21,6 +34,11 @@ func _physics_process(delta):
 	
 	self.velocity = moving_direction * speed * delta
 	move_and_slide()
+
+func _input(event):
+	if event.is_action_pressed("interact"):
+		if immediate_interactable:
+			immediate_interactable.interact()
 
 func update_player_animation():
 	var direction: Vector2
@@ -45,6 +63,8 @@ func handle_firing():
 	if not can_fire or not firing_direction:
 		return
 	var pellet = pellet_scene.instantiate()
+	pellet.ignore_area($Hurtbox)
+	$Hurtbox.add_area_to_ignore(pellet.damagebox)
 	pellet.position = self.position
 	pellet.direction = firing_direction
 	can_fire = false
@@ -85,3 +105,25 @@ func update_slingshot_animation():
 	
 func _on_firing_timer_timeout():
 	can_fire = true
+
+func _on_hurtbox_damage_taken(value):
+	if invincible:
+		return
+	$Animations.modulate = Color.RED
+	$HurtTimer.start()
+	invincible = true
+	hp -= value
+	hp_changed.emit(hp)
+	if hp <= 0:
+		die()
+
+func _on_hurt_timer_timeout():
+	$Animations.modulate = Color.WHITE
+	invincible = false
+
+func die():
+	pass
+
+func _on_interaction_area_area_entered(area):
+	if area is Interactable:
+		immediate_interactable = area

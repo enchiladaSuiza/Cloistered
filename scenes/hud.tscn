@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://btx8m8pbpb4tm"]
+
+[ext_resource type="Script" path="res://scenes/hud.gd" id="1_0271e"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8rpip"]
+bg_color = Color(0.17903, 0.17903, 0.17903, 1)
+corner_radius_top_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_72muj"]
+bg_color = Color(0.802247, 0.319267, 1.92523e-07, 1)
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_0271e")
+
+[node name="LifeBar" type="ProgressBar" parent="."]
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 218.0
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 8
+theme_override_styles/background = SubResource("StyleBoxFlat_8rpip")
+theme_override_styles/fill = SubResource("StyleBoxFlat_72muj")
+value = 50.0
+show_percentage = false
+
+[node name="LifeLabel" type="Label" parent="LifeBar"]
+layout_mode = 0
+offset_right = 212.0
+offset_bottom = 11.0
+theme_override_font_sizes/font_size = 7
+text = "10/10"
+horizontal_alignment = 1
+vertical_alignment = 1

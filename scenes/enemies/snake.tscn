@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://ddhr1robnyo3g"]
+[gd_scene load_steps=10 format=3 uid="uid://ddhr1robnyo3g"]
 
 [ext_resource type="Texture2D" uid="uid://qnhn4ksdig51" path="res://assets/snake.png" id="1_j6mxb"]
 [ext_resource type="Script" path="res://scenes/enemies/snake.gd" id="1_p527r"]
 [ext_resource type="PackedScene" uid="uid://b1imo3djyf5ek" path="res://scenes/components/hurtbox.tscn" id="3_duijx"]
+[ext_resource type="PackedScene" uid="uid://gxm565ul2gs0" path="res://scenes/components/damagebox.tscn" id="4_fn7ip"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_caokp"]
 radius = 6.0
@@ -56,10 +57,11 @@ shape = SubResource("CircleShape2D_caokp")
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0lxda")
-animation = &"down"
+animation = &"up"
 
 [node name="Hurtbox" parent="." instance=ExtResource("3_duijx")]
-hp = 3
+
+[node name="Damagebox" parent="." instance=ExtResource("4_fn7ip")]
 
 [node name="WaitTimer" type="Timer" parent="."]
 one_shot = true
@@ -75,10 +77,11 @@ autostart = true
 wait_time = 0.3
 one_shot = true
 
-[connection signal="hp_changed" from="Hurtbox" to="." method="_on_hurtbox_hp_changed"]
+[connection signal="damage_taken" from="Hurtbox" to="." method="_on_hurtbox_damage_taken"]
 [connection signal="timeout" from="WaitTimer" to="." method="_on_wait_timer_timeout"]
 [connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]
 [connection signal="timeout" from="FrameTimer" to="." method="_on_frame_timer_timeout"]
 [connection signal="timeout" from="DamageTintTimer" to="." method="_on_damage_tint_timer_timeout"]
 
 [editable path="Hurtbox"]
+[editable path="Damagebox"]

@@ -1,8 +1,9 @@
-[gd_scene load_steps=32 format=3 uid="uid://cbsfm6g5umn8h"]
+[gd_scene load_steps=34 format=3 uid="uid://cbsfm6g5umn8h"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_xe0oc"]
 [ext_resource type="Texture2D" uid="uid://qgucg5ffvljk" path="res://assets/player.png" id="2_nmcy7"]
 [ext_resource type="Texture2D" uid="uid://clivt2o1r2bak" path="res://assets/slingshot.png" id="3_pxvt7"]
+[ext_resource type="PackedScene" uid="uid://b1imo3djyf5ek" path="res://scenes/components/hurtbox.tscn" id="4_nv1bk"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vok3f"]
 load_path = "res://.godot/imported/player.png-be2216fcaabb5c62aa2466cd9a5726a8.ctex"
@@ -261,9 +262,15 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_ts0em"]
 radius = 6.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gge6c"]
+size = Vector2(18, 18)
+
 [node name="Player" type="CharacterBody2D"]
-collision_mask = 2
+collision_mask = 6
 script = ExtResource("1_xe0oc")
+speed = null
+hp = null
+max_hp = null
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5liea")
@@ -290,4 +297,21 @@ shape = SubResource("CircleShape2D_ts0em")
 
 [node name="FiringTimer" type="Timer" parent="."]
 
+[node name="HurtTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="Hurtbox" parent="." instance=ExtResource("4_nv1bk")]
+
+[node name="InteractionArea" type="Area2D" parent="."]
+
+[node name="Shape" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("RectangleShape2D_gge6c")
+debug_color = Color(0.715819, 0.255688, 1, 0.42)
+
 [connection signal="timeout" from="FiringTimer" to="." method="_on_firing_timer_timeout"]
+[connection signal="timeout" from="HurtTimer" to="." method="_on_hurt_timer_timeout"]
+[connection signal="damage_taken" from="Hurtbox" to="." method="_on_hurtbox_damage_taken"]
+[connection signal="area_entered" from="InteractionArea" to="." method="_on_interaction_area_area_entered"]
+
+[editable path="Hurtbox"]

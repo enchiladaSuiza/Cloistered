@@ -2,11 +2,25 @@ extends Area2D
 
 class_name Hurt
 
-signal hp_changed(value: int)
+signal damage_taken(value: int)
 
-@export var hp: int = 10
+var damage_areas_inside = []
+var areas_to_ignore = []
+
+func _process(delta):
+	for damage_area in damage_areas_inside:
+		damage_taken.emit(damage_area.damage_value)
+
+func add_area_to_ignore(area: Area2D):
+	areas_to_ignore.append(area)
 
 func _on_area_entered(area: Area2D) -> void:
+	if area in areas_to_ignore:
+		return
 	if area is Damage:
-		hp -= area.damage_value
-		hp_changed.emit(hp)
+		damage_taken.emit(area.damage_value)
+		damage_areas_inside.append(area)
+
+func _on_area_exited(area):
+	if area is Damage:
+		damage_areas_inside.erase(area)

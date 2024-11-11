@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+@export var hp: float = 3
 @export var min_wait_time: int = 1
 @export var max_wait_time: int = 3
 @export var min_move_time: int = 1
@@ -9,18 +10,22 @@ var possible_directions = [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT
 var direction: Vector2
 var speed: float = 4000.0
 
+var flash_scene = preload("res://scenes/flash.tscn")
+
 func _ready() -> void:
+	$Hurtbox.add_area_to_ignore($Damagebox)
+	$Damagebox.add_area_to_ignore($Hurtbox)
 	start_waiting()
 
 func _process(delta: float) -> void:
 	self.velocity = direction * speed * delta
 	move_and_slide()
 
-func _on_hurtbox_hp_changed(value: int) -> void:
-	$Animations.modulate = Color.RED
-	$DamageTintTimer.start()
-	if value <= 0:
-		queue_free()
+func die():
+	var flash = flash_scene.instantiate()
+	flash.position = self.position
+	get_parent().add_child(flash)
+	queue_free()
 
 func _on_wait_timer_timeout() -> void:
 	start_moving()
@@ -46,10 +51,11 @@ func update_animation():
 		animation_name = "side"
 		if direction.x < 0:
 			flip_h = true
-	if direction.y > 0:
-		animation_name = "down"
-	elif direction.y < 0:
-		animation_name = "up"
+	else:
+		if direction.y > 0:
+			animation_name = "down"
+		elif direction.y < 0:
+			animation_name = "up"
 	$Animations.play(animation_name)
 	$Animations.flip_h = flip_h
 	
@@ -64,3 +70,9 @@ func _on_frame_timer_timeout() -> void:
 func _on_damage_tint_timer_timeout() -> void:
 	$Animations.modulate = Color.WHITE
 	
+func _on_hurtbox_damage_taken(damage):
+	$Animations.modulate = Color.RED
+	$DamageTintTimer.start()
+	hp -= damage
+	if hp <= 0:
+		die()
