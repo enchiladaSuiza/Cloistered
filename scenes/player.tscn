@@ -259,8 +259,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ts0em"]
-radius = 6.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wjpsq"]
+size = Vector2(12, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gge6c"]
 size = Vector2(18, 18)
@@ -290,7 +290,7 @@ position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_ts0em")
+shape = SubResource("RectangleShape2D_wjpsq")
 
 [node name="FiringTimer" type="Timer" parent="."]
 
