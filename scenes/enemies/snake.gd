@@ -51,11 +51,10 @@ func update_animation():
 		animation_name = "side"
 		if direction.x < 0:
 			flip_h = true
-	else:
-		if direction.y > 0:
-			animation_name = "down"
-		elif direction.y < 0:
-			animation_name = "up"
+	if direction.y > 0:
+		animation_name = "down"
+	if direction.y < 0:
+		animation_name = "up"
 	$Animations.play(animation_name)
 	$Animations.flip_h = flip_h
 	

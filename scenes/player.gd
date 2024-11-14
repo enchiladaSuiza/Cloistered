@@ -35,9 +35,9 @@ func _physics_process(delta):
 	
 	self.velocity = moving_direction * speed * delta
 	move_and_slide()
-	if moving_direction:
+	#if moving_direction:
 		#coordinates_changed.emit(self.position)
-		print(self.position)
+		#print(self.position)
 
 func _input(event):
 	if event.is_action_pressed("interact"):
@@ -69,11 +69,12 @@ func handle_firing():
 	var pellet = pellet_scene.instantiate()
 	pellet.ignore_area($Hurtbox)
 	$Hurtbox.add_area_to_ignore(pellet.damagebox)
-	pellet.position = self.position
+	#pellet.position = self.position
 	pellet.direction = firing_direction
 	can_fire = false
 	$FiringTimer.start()
-	get_parent().add_child(pellet)
+	#get_parent().add_child(pellet)
+	self.add_child(pellet)
 	
 # URDL (Binary number): [Animation Name, X Offset, Y Offset, Flip, Tree Index]
 var slingshot_animation_data = {

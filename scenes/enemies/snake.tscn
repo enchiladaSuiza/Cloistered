@@ -49,7 +49,7 @@ animations = [{
 
 [node name="Snake" type="CharacterBody2D"]
 collision_layer = 2
-collision_mask = 0
+collision_mask = 24
 script = ExtResource("1_p527r")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
@@ -57,11 +57,15 @@ shape = SubResource("CircleShape2D_caokp")
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0lxda")
-animation = &"up"
+animation = &"down"
 
 [node name="Hurtbox" parent="." instance=ExtResource("3_duijx")]
+collision_layer = 2
+collision_mask = 16
 
 [node name="Damagebox" parent="." instance=ExtResource("4_fn7ip")]
+collision_layer = 2
+collision_mask = 1
 
 [node name="WaitTimer" type="Timer" parent="."]
 one_shot = true

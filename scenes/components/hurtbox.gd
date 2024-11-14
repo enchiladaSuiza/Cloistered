@@ -7,10 +7,6 @@ signal damage_taken(value: int)
 var damage_areas_inside = []
 var areas_to_ignore = []
 
-func _process(delta):
-	for damage_area in damage_areas_inside:
-		damage_taken.emit(damage_area.damage_value)
-
 func add_area_to_ignore(area: Area2D):
 	areas_to_ignore.append(area)
 
@@ -24,6 +20,3 @@ func _on_area_entered(area: Area2D) -> void:
 func _on_area_exited(area):
 	if area is Damage:
 		damage_areas_inside.erase(area)
-
-func _on_body_entered(body: Node2D) -> void:
-	pass # Replace with function body.
