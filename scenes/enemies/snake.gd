@@ -57,6 +57,7 @@ func update_animation():
 		animation_name = "up"
 	$Animations.play(animation_name)
 	$Animations.flip_h = flip_h
+	$Animations.flip_v = false
 	
 func _on_frame_timer_timeout() -> void:
 	if not direction:
@@ -75,4 +76,3 @@ func _on_hurtbox_damage_taken(damage):
 	hp -= damage
 	if hp <= 0:
 		die()
-		

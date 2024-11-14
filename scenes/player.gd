@@ -20,6 +20,11 @@ var last_moving_direction: Vector2 = Vector2(0, 1)
 var can_fire: bool = true
 var invincible: bool = false
 var immediate_interactable: Interactable
+var speed_modifier: float = 1.0: # Set by world
+	get(): 
+		return speed_modifier
+	set(value):
+		speed_modifier = value
 
 var pellet_scene := preload("res://scenes/pellet.tscn")
 
@@ -33,7 +38,10 @@ func _physics_process(delta):
 	handle_firing()
 	update_slingshot_animation()
 	
-	self.velocity = moving_direction * speed * delta
+	if speed_modifier == 0:
+		self.velocity = moving_direction * speed * delta
+	else:
+		self.velocity = moving_direction * speed * delta * speed_modifier
 	move_and_slide()
 	#if moving_direction:
 		#coordinates_changed.emit(self.position)
