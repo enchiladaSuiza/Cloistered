@@ -25,6 +25,11 @@ var speed_modifier: float = 1.0: # Set by world
 		return speed_modifier
 	set(value):
 		speed_modifier = value
+var current_floor: int = 0:
+	get():
+		return current_floor
+	set(value):
+		current_floor = value
 
 var pellet_scene := preload("res://scenes/pellet.tscn")
 

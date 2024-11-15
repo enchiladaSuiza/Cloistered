@@ -27,6 +27,6 @@ func _on_damagebox_hit(area: Area2D) -> void:
 
 func _on_damagebox_entered_collision(body: Node2D) -> void:
 	#print("Pellet entered collision")
-	if body is TileMapLayer:
+	if body is TileMapLayer or body is Ledge:
 		queue_free()
 	
