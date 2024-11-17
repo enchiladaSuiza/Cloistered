@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=4 uid="uid://bxg0a4btt6dvj"]
 
-[ext_resource type="Texture2D" uid="uid://du8made01qah" path="res://assets/tiles_outside.png" id="1_4voux"]
+[ext_resource type="Texture2D" uid="uid://du8made01qah" path="res://assets/world/tiles_outside.png" id="1_4voux"]
 [ext_resource type="PackedScene" uid="uid://cbsfm6g5umn8h" path="res://scenes/player.tscn" id="1_t3mbr"]
 [ext_resource type="PackedScene" uid="uid://ddhr1robnyo3g" path="res://scenes/enemies/snake.tscn" id="3_7p6ev"]
 [ext_resource type="PackedScene" uid="uid://btx8m8pbpb4tm" path="res://scenes/hud.tscn" id="4_00i24"]

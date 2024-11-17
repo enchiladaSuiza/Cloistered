@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://du8made01qah"
-path="res://.godot/imported/tiles_outside.png-013e7423f09b8dce890d2eb1640727aa.ctex"
+uid="uid://bbvt1ivdf5ovg"
+path="res://.godot/imported/fountain.png-6b08101f2c5279813850c9a3542d617f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tiles_outside.png"
-dest_files=["res://.godot/imported/tiles_outside.png-013e7423f09b8dce890d2eb1640727aa.ctex"]
+source_file="res://assets/world/fountain.png"
+dest_files=["res://.godot/imported/fountain.png-6b08101f2c5279813850c9a3542d617f.ctex"]
 
 [params]
 

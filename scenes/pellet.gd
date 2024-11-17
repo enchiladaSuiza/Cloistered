@@ -13,6 +13,11 @@ var direction := Vector2.ZERO:
 		direction = value
 const live_length: float = 10000
 const live_height: float = 10000
+var current_floor: int = 0:
+	get():
+		return current_floor
+	set(value):
+		current_floor = value
 
 func _process(delta):
 	self.position += direction * speed * delta
@@ -27,6 +32,9 @@ func _on_damagebox_hit(area: Area2D) -> void:
 
 func _on_damagebox_entered_collision(body: Node2D) -> void:
 	#print("Pellet entered collision")
-	if body is TileMapLayer or body is Ledge:
+	if body is TileMapLayer:
 		queue_free()
+	if body is Ledge:
+		if body.floor_index > current_floor:
+			queue_free()
 	

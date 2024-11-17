@@ -266,7 +266,7 @@ size = Vector2(12, 16)
 size = Vector2(18, 18)
 
 [node name="Player" type="CharacterBody2D"]
-collision_mask = 14
+collision_mask = 46
 script = ExtResource("1_xe0oc")
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]
@@ -303,6 +303,7 @@ collision_layer = 1
 collision_mask = 2
 
 [node name="InteractionArea" type="Area2D" parent="."]
+collision_mask = 48
 
 [node name="Shape" type="CollisionShape2D" parent="InteractionArea"]
 shape = SubResource("RectangleShape2D_gge6c")

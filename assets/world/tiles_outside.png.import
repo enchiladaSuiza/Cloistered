@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgd71vb8vjjng"
-path="res://.godot/imported/tree.png-bf64094b89302dd1be83aa5edf9988ef.ctex"
+uid="uid://du8made01qah"
+path="res://.godot/imported/tiles_outside.png-352f5987bc6209d6df4e9a8baaae88d6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tree.png"
-dest_files=["res://.godot/imported/tree.png-bf64094b89302dd1be83aa5edf9988ef.ctex"]
+source_file="res://assets/world/tiles_outside.png"
+dest_files=["res://.godot/imported/tiles_outside.png-352f5987bc6209d6df4e9a8baaae88d6.ctex"]
 
 [params]
 

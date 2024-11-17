@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://gxm565ul2gs0" path="res://scenes/components/damagebox.tscn" id="3_vnatu"]
 
 [node name="Pellet" type="Node2D"]
+z_index = -1
 script = ExtResource("1_67inn")
 
 [node name="Sprite" type="Sprite2D" parent="."]

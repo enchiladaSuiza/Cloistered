@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmdlpycxnoyac"
-path="res://.godot/imported/tiles_overlay.png-19734008e304cf966131e0a12ef00775.ctex"
+uid="uid://bgd71vb8vjjng"
+path="res://.godot/imported/tree.png-f1419b6cf24a3d85d9ef39c4049460b1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tiles_overlay.png"
-dest_files=["res://.godot/imported/tiles_overlay.png-19734008e304cf966131e0a12ef00775.ctex"]
+source_file="res://assets/world/tree.png"
+dest_files=["res://.godot/imported/tree.png-f1419b6cf24a3d85d9ef39c4049460b1.ctex"]
 
 [params]
 

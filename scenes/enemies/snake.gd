@@ -5,12 +5,13 @@ extends CharacterBody2D
 @export var max_wait_time: int = 3
 @export var min_move_time: int = 1
 @export var max_move_time: int = 3
+@export var dropped_scene: PackedScene
 
 var possible_directions = [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT]
 var direction: Vector2
 var speed: float = 4000.0
 
-var flash_scene = preload("res://scenes/flash.tscn")
+var flash_scene := preload("res://scenes/flash.tscn")
 
 func _ready() -> void:
 	$Hurtbox.add_area_to_ignore($Damagebox)
@@ -22,6 +23,11 @@ func _process(delta: float) -> void:
 	move_and_slide()
 
 func die():
+	if dropped_scene:
+		var drop = dropped_scene.instantiate()
+		drop.position = self.position
+		get_parent().call_deferred("add_child", drop)
+		
 	var flash = flash_scene.instantiate()
 	flash.position = self.position
 	get_parent().add_child(flash)

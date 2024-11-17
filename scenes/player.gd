@@ -82,12 +82,13 @@ func handle_firing():
 	var pellet = pellet_scene.instantiate()
 	pellet.ignore_area($Hurtbox)
 	$Hurtbox.add_area_to_ignore(pellet.damagebox)
-	#pellet.position = self.position
+	pellet.position = self.position
 	pellet.direction = firing_direction
+	pellet.current_floor = current_floor
 	can_fire = false
 	$FiringTimer.start()
-	#get_parent().add_child(pellet)
-	self.add_child(pellet)
+	#self.add_child(pellet)
+	get_parent().add_child(pellet)
 	
 # URDL (Binary number): [Animation Name, X Offset, Y Offset, Flip, Tree Index]
 var slingshot_animation_data = {
@@ -145,6 +146,10 @@ func die():
 func _on_interaction_area_area_entered(area):
 	if area is Interactable:
 		immediate_interactable = area
+	elif area.is_in_group("collectible"):
+		if area is KeyCollectible:
+			print("key got")
+		area.queue_free()
 		
 func set_camera_limits(left, top, right, bottom):
 	$Camera.limit_left = left

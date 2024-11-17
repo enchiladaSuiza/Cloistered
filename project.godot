@@ -31,6 +31,7 @@ version_control/autoload_on_startup=true
 damage="Damage-causing areas"
 hurt="Hurtable areas"
 player_hurtbox=""
+collectible="Collectible items"
 
 [input]
 
@@ -91,6 +92,7 @@ interact={
 2d_physics/layer_3="Interactables"
 2d_physics/layer_4="World"
 2d_physics/layer_5="Objects"
+2d_physics/layer_6="Collectibles"
 
 [rendering]
 
