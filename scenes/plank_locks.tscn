@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://mx8job3fbxsn"]
+
+[ext_resource type="Texture2D" uid="uid://bgfxi7owk6i8b" path="res://assets/plank.png" id="1_1cbjv"]
+[ext_resource type="Script" path="res://scenes/plank_locks.gd" id="1_24qkq"]
+[ext_resource type="Texture2D" uid="uid://ctvtkk0d6xpxh" path="res://assets/lock.png" id="2_fxr3p"]
+[ext_resource type="Script" path="res://scenes/components/interactable.gd" id="3_22i0b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r5d5y"]
+size = Vector2(62, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d1t4b"]
+size = Vector2(62, 38)
+
+[node name="PlankLocks" type="StaticBody2D"]
+script = ExtResource("1_24qkq")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_r5d5y")
+
+[node name="Plank" type="Sprite2D" parent="."]
+texture = ExtResource("1_1cbjv")
+
+[node name="Locks" type="Node2D" parent="."]
+
+[node name="Lock1" type="Sprite2D" parent="Locks"]
+texture = ExtResource("2_fxr3p")
+
+[node name="Lock2" type="Sprite2D" parent="Locks"]
+position = Vector2(-23, 0)
+texture = ExtResource("2_fxr3p")
+
+[node name="Lock3" type="Sprite2D" parent="Locks"]
+position = Vector2(23, 0)
+texture = ExtResource("2_fxr3p")
+
+[node name="Interactable" type="Area2D" parent="."]
+collision_layer = 4
+script = ExtResource("3_22i0b")
+
+[node name="Shape" type="CollisionShape2D" parent="Interactable"]
+position = Vector2(0, 13)
+shape = SubResource("RectangleShape2D_d1t4b")
+debug_color = Color(0.832536, 0.00136557, 0.939765, 0.42)
+
+[connection signal="interacted" from="Interactable" to="." method="_on_interactable_interacted"]

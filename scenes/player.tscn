@@ -303,7 +303,7 @@ collision_layer = 1
 collision_mask = 2
 
 [node name="InteractionArea" type="Area2D" parent="."]
-collision_mask = 48
+collision_mask = 52
 
 [node name="Shape" type="CollisionShape2D" parent="InteractionArea"]
 shape = SubResource("RectangleShape2D_gge6c")
@@ -313,5 +313,6 @@ debug_color = Color(0.715819, 0.255688, 1, 0.42)
 [connection signal="timeout" from="HurtTimer" to="." method="_on_hurt_timer_timeout"]
 [connection signal="damage_taken" from="Hurtbox" to="." method="_on_hurtbox_damage_taken"]
 [connection signal="area_entered" from="InteractionArea" to="." method="_on_interaction_area_area_entered"]
+[connection signal="area_exited" from="InteractionArea" to="." method="_on_interaction_area_area_exited"]
 
 [editable path="Hurtbox"]

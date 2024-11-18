@@ -1,13 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://btx8m8pbpb4tm"]
+[gd_scene load_steps=5 format=3 uid="uid://btx8m8pbpb4tm"]
 
 [ext_resource type="Script" path="res://scenes/hud.gd" id="1_0271e"]
+[ext_resource type="Texture2D" uid="uid://d174aj3ryrtgm" path="res://assets/key.png" id="2_w7xax"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8rpip"]
 bg_color = Color(0.17903, 0.17903, 0.17903, 1)
-corner_radius_top_left = 5
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_72muj"]
 bg_color = Color(0.802247, 0.319267, 1.92523e-07, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_0271e")
@@ -17,6 +25,7 @@ offset_left = 6.0
 offset_top = 6.0
 offset_right = 218.0
 offset_bottom = 16.0
+theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 8
 theme_override_styles/background = SubResource("StyleBoxFlat_8rpip")
 theme_override_styles/fill = SubResource("StyleBoxFlat_72muj")
@@ -28,6 +37,13 @@ layout_mode = 0
 offset_right = 212.0
 offset_bottom = 11.0
 theme_override_font_sizes/font_size = 7
-text = "10/10"
+text = "10"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Inventory" type="Node2D" parent="."]
+
+[node name="PlaceholderInventoryItem" type="Sprite2D" parent="Inventory"]
+visible = false
+position = Vector2(12, 348)
+texture = ExtResource("2_w7xax")

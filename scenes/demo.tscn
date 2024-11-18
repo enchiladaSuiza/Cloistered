@@ -56,4 +56,4 @@ tile_set = SubResource("TileSet_x41xk")
 position = Vector2(0, -56)
 
 [node name="Door" parent="." instance=ExtResource("5_hhsjj")]
-position = Vector2(0, -192)
+position = Vector2(0, -168)

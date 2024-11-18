@@ -1,18 +1,18 @@
 [gd_scene load_steps=4 format=3 uid="uid://dj2kpjdavib1w"]
 
-[ext_resource type="Script" path="res://scenes/key.gd" id="1_nrgj0"]
 [ext_resource type="Texture2D" uid="uid://d174aj3ryrtgm" path="res://assets/key.png" id="1_synm0"]
+[ext_resource type="Script" path="res://collectible.gd" id="2_f53y8"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_4gkaf"]
-radius = 8.06226
+[sub_resource type="CircleShape2D" id="CircleShape2D_qjycd"]
 
-[node name="Key" type="Area2D" groups=["collectible"]]
-collision_layer = 32
-script = ExtResource("1_nrgj0")
-
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Key" type="Sprite2D"]
 texture = ExtResource("1_synm0")
 
-[node name="Shape" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_4gkaf")
-debug_color = Color(1.78084e-06, 0.633721, 0.43726, 0.42)
+[node name="Collectible" type="Area2D" parent="."]
+collision_layer = 32
+script = ExtResource("2_f53y8")
+collectible = "key"
+
+[node name="Shape" type="CollisionShape2D" parent="Collectible"]
+shape = SubResource("CircleShape2D_qjycd")
+debug_color = Color(0.0259248, 0.628236, 0.487992, 0.42)

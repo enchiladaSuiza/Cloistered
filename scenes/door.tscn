@@ -1,8 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dxnnhudphnkbp"]
+[gd_scene load_steps=9 format=3 uid="uid://dxnnhudphnkbp"]
 
 [ext_resource type="Script" path="res://scenes/door.gd" id="1_28c4x"]
 [ext_resource type="Texture2D" uid="uid://bf3nmxak4wpb4" path="res://assets/door.png" id="2_8c4yy"]
-[ext_resource type="PackedScene" uid="uid://v1oruu764h5l" path="res://scenes/components/interactable.tscn" id="3_1hg7i"]
+[ext_resource type="Script" path="res://scenes/components/interactable.gd" id="3_vrami"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ffwog"]
 atlas = ExtResource("2_8c4yy")
@@ -34,24 +34,29 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jhkoo"]
 size = Vector2(16, 16)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w2dil"]
+size = Vector2(16, 45)
+
 [node name="Door" type="StaticBody2D"]
-collision_layer = 4
-collision_mask = 0
+collision_layer = 8
 script = ExtResource("1_28c4x")
 
 [node name="Sprites" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_tnt74")
 animation = &"shut"
 
-[node name="Interactable" parent="." instance=ExtResource("3_1hg7i")]
-
-[node name="Shape" parent="Interactable" index="0"]
-position = Vector2(0, 6)
-
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_jhkoo")
 
-[connection signal="interacted" from="Interactable" to="." method="_on_interactable_interacted"]
+[node name="Interactable" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("3_vrami")
 
-[editable path="Interactable"]
+[node name="Shape" type="CollisionShape2D" parent="Interactable"]
+position = Vector2(0, 9.5)
+shape = SubResource("RectangleShape2D_w2dil")
+debug_color = Color(0.832536, 0.00136557, 0.939765, 0.42)
+
+[connection signal="interacted" from="Interactable" to="." method="_on_interactable_interacted"]

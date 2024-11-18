@@ -1,11 +1,5 @@
-extends Node2D
+extends StaticBody2D
 
-func _ready():
-	pass
-
-func _process(delta):
-	pass
-
-func _on_interactable_interacted():
+func _on_interactable_interacted(player_inventory):
 	$Sprites.play("open")
 	$Collision.disabled = true

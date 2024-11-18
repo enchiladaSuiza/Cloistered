@@ -5,6 +5,7 @@ class_name Player
 signal hp_changed(value)
 signal max_hp_changed(value)
 signal coordinates_changed(coords: Vector2)
+signal inventory_updated(inventory: Array)
 
 @export var speed: float = 8500.0
 @export var hp: float = 10:
@@ -33,6 +34,8 @@ var current_floor: int = 0:
 
 var pellet_scene := preload("res://scenes/pellet.tscn")
 
+var inventory = []
+
 func _physics_process(delta):
 	moving_direction = Input.get_vector(
 		"move_left", "move_right", "move_up", "move_down")
@@ -55,7 +58,8 @@ func _physics_process(delta):
 func _input(event):
 	if event.is_action_pressed("interact"):
 		if immediate_interactable:
-			immediate_interactable.interact()
+			immediate_interactable.interact(inventory)
+			inventory_updated.emit(inventory)
 
 func update_player_animation():
 	var direction: Vector2
@@ -146,13 +150,20 @@ func die():
 func _on_interaction_area_area_entered(area):
 	if area is Interactable:
 		immediate_interactable = area
-	elif area.is_in_group("collectible"):
-		if area is KeyCollectible:
-			print("key got")
-		area.queue_free()
+		if area.consumable_item:
+			inventory.erase(area.consumable_item)
+			inventory_updated.emit(inventory)
+	elif area is Collectible:
+		inventory.append(area.collectible)
+		inventory_updated.emit(inventory)
+		area.get_parent().queue_free()
 		
 func set_camera_limits(left, top, right, bottom):
 	$Camera.limit_left = left
 	$Camera.limit_top = top
 	$Camera.limit_right = right
 	$Camera.limit_bottom = bottom
+
+func _on_interaction_area_area_exited(area):
+	if area == immediate_interactable:
+		immediate_interactable = null

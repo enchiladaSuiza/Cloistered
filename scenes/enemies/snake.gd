@@ -23,12 +23,9 @@ func _process(delta: float) -> void:
 	move_and_slide()
 
 func die():
-	if dropped_scene:
-		var drop = dropped_scene.instantiate()
-		drop.position = self.position
-		get_parent().call_deferred("add_child", drop)
-		
 	var flash = flash_scene.instantiate()
+	if dropped_scene:
+		flash.drop_scene = dropped_scene
 	flash.position = self.position
 	get_parent().add_child(flash)
 	queue_free()

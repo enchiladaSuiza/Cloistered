@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://vox76sx7cd74"]
+
+[ext_resource type="Script" path="res://collectible.gd" id="1_mjlb4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m7hae"]
+
+[node name="Collectible" type="Area2D"]
+collision_layer = 32
+script = ExtResource("1_mjlb4")
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_m7hae")
+debug_color = Color(0.0259248, 0.628236, 0.487992, 0.42)
