@@ -6,14 +6,21 @@ signal hp_changed(value)
 signal max_hp_changed(value)
 signal coordinates_changed(coords: Vector2)
 signal inventory_updated(inventory: Array)
+signal item_got(item_name: String)
 
 @export var speed: float = 8500.0
 @export var hp: float = 10:
 	get():
 		return hp
+	set(value):
+		hp = value
+		hp_changed.emit(hp)
 @export var max_hp: float = 10:
 	get():
 		return max_hp
+	set(value):
+		max_hp = value
+		max_hp_changed.emit(max_hp)
 
 var moving_direction: Vector2
 var firing_direction: Vector2
@@ -35,6 +42,9 @@ var current_floor: int = 0:
 var pellet_scene := preload("res://scenes/pellet.tscn")
 
 var inventory = []
+
+func _ready():
+	inventory_updated.emit(inventory)
 
 func _physics_process(delta):
 	moving_direction = Input.get_vector(
@@ -59,7 +69,9 @@ func _input(event):
 	if event.is_action_pressed("interact"):
 		if immediate_interactable:
 			immediate_interactable.interact(inventory)
-			inventory_updated.emit(inventory)
+			if immediate_interactable.consumable_item:
+				inventory.erase(immediate_interactable.consumable_item)
+				inventory_updated.emit(inventory)
 
 func update_player_animation():
 	var direction: Vector2
@@ -150,11 +162,10 @@ func die():
 func _on_interaction_area_area_entered(area):
 	if area is Interactable:
 		immediate_interactable = area
-		if area.consumable_item:
-			inventory.erase(area.consumable_item)
-			inventory_updated.emit(inventory)
 	elif area is Collectible:
-		inventory.append(area.collectible)
+		var item = area.collectible
+		inventory.append(item)
+		item_got.emit(item)
 		inventory_updated.emit(inventory)
 		area.get_parent().queue_free()
 		

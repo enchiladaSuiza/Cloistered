@@ -5,7 +5,11 @@ extends CharacterBody2D
 @export var max_wait_time: int = 3
 @export var min_move_time: int = 1
 @export var max_move_time: int = 3
-@export var dropped_scene: PackedScene
+@export var dropped_scene: PackedScene:
+	get():
+		return dropped_scene
+	set(value):
+		dropped_scene = value
 
 var possible_directions = [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT]
 var direction: Vector2

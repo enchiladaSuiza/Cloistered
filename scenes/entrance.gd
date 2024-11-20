@@ -8,7 +8,31 @@ extends Node2D
 	'bottom': 120
 }
 
+var save_variables = {
+	"keys_left": 3,
+	"door_open": false
+}
+
+var snake_scene := load("res://scenes/enemies/snake.tscn")
+var plank_locks_scene := load("res://scenes/plank_locks.tscn")
+
 func _ready() -> void:
+	PlayerVariables.retrieve($Player)
+	save_variables = WorldVariables.entrance
+	var snake_positions = [Vector2(0, -1500), Vector2(-310, -980), Vector2(530, -1208)]
+	for i in range(save_variables["keys_left"]):
+		var snake = snake_scene.instantiate()
+		snake.position = snake_positions[i]
+		snake.dropped_scene = load("res://scenes/key.tscn")
+		add_child(snake)
+	if save_variables["door_open"]:
+		open_door()
+	else:
+		var plank_locks = plank_locks_scene.instantiate()
+		plank_locks.position = Vector2(0, -1588)
+		plank_locks.unlocked.connect(open_door)
+		add_child(plank_locks)
+	
 	$Player.set_camera_limits(
 		camera_limits['left'], camera_limits['top'], camera_limits['right'], camera_limits['bottom'])
 
@@ -58,9 +82,16 @@ func open_door():
 	$TileMapLayer.set_cell(Vector2i(1, -100), 0, Vector2i(2, 2), 1)
 	$TileMapLayer.set_cell(Vector2i(0, -99), 1, Vector2i(0, 4))
 	$TileMapLayer.set_cell(Vector2i(1, -99), 0, Vector2i(2, 3), 1)
-
-func _on_plank_locks_unlocked():
-	open_door()
+	
+	save_variables["door_open"] = true
 
 func _on_church_area_trigger_area_entered(area):
-	print("going to church")
+	if area.get_parent() is Player:
+		PlayerVariables.save($Player)
+		WorldVariables.entrance = save_variables
+		get_tree().call_deferred("change_scene_to_packed",
+			load("res://scenes/church.tscn"))
+
+func _on_player_item_got(item_name):
+	if item_name == "key":
+		save_variables["keys_left"] -= 1
