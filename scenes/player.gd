@@ -163,10 +163,7 @@ func _on_interaction_area_area_entered(area):
 	if area is Interactable:
 		immediate_interactable = area
 	elif area is Collectible:
-		var item = area.collectible
-		inventory.append(item)
-		item_got.emit(item)
-		inventory_updated.emit(inventory)
+		give_item(area.collectible)
 		area.get_parent().queue_free()
 		
 func set_camera_limits(left, top, right, bottom):
@@ -178,3 +175,8 @@ func set_camera_limits(left, top, right, bottom):
 func _on_interaction_area_area_exited(area):
 	if area == immediate_interactable:
 		immediate_interactable = null
+
+func give_item(item):
+	inventory.append(item)
+	item_got.emit(item)
+	inventory_updated.emit(inventory)

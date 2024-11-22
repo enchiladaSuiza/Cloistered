@@ -4,7 +4,11 @@ extends CanvasLayer
 
 # Textures have to be 16x16
 var textures = {
-	"key": load("res://assets/key.png")
+	"key": load("res://assets/key.png"),
+	"dagger": load("res://assets/dagger.png"),
+	"bread": load("res://assets/bread.png"),
+	"chalice": load("res://assets/chalice.png"),
+	"ring": load("res://assets/ring.png")
 }
 
 var inventory_x: = 12
