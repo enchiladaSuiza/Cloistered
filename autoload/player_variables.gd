@@ -19,7 +19,6 @@ func save(player: Player, position: Vector2 = Vector2.ZERO):
 	hp = player.hp
 	max_hp = player.max_hp
 	self.position = position
-	print_variables()
 
 func print_variables():
 	print("HP: " + str(hp))

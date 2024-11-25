@@ -33,19 +33,10 @@ func _ready() -> void:
 		plank_locks.unlocked.connect(open_door)
 		add_child(plank_locks)
 	
-	$Player.set_camera_limits(
-		camera_limits['left'], camera_limits['top'], camera_limits['right'], camera_limits['bottom'])
+	$Player.set_camera_limits(camera_limits)
 
 func _physics_process(_delta: float) -> void:
-	$Player.speed_modifier = get_custom_data_at($Player.position, "speed_modifier")
-
-func get_custom_data_at(pos: Vector2, custom_data: String) -> Variant:
-	var local_position: Vector2i = $TileMapLayer.local_to_map(pos)
-	var data = $TileMapLayer.get_cell_tile_data(local_position)
-	if data:
-		return data.get_custom_data(custom_data)
-	else:
-		return 0
+	$Player.speed_modifier = WorldVariables.get_custom_data_at($TileMapLayer, $Player.position, "speed_modifier")
 
 func _on_floor_0_trigger_body_entered(body):
 	if body is Player:
@@ -86,11 +77,12 @@ func open_door():
 	save_variables["door_open"] = true
 
 func _on_church_area_trigger_area_entered(area):
-	if area.get_parent() is Player:
-		PlayerVariables.save($Player)
-		WorldVariables.entrance = save_variables
-		get_tree().call_deferred("change_scene_to_packed",
-			load("res://scenes/church.tscn"))
+	WorldVariables.change_scene(
+		get_tree(),
+		area.get_parent() as Player,
+		Vector2.ZERO,
+		load("res://scenes/church.tscn")
+	)
 
 func _on_player_item_got(item_name):
 	if item_name == "key":

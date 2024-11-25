@@ -67,11 +67,19 @@ func _physics_process(delta):
 
 func _input(event):
 	if event.is_action_pressed("interact"):
-		if immediate_interactable:
-			immediate_interactable.interact(inventory)
-			if immediate_interactable.consumable_item:
-				inventory.erase(immediate_interactable.consumable_item)
-				inventory_updated.emit(inventory)
+		handle_interaction()
+
+func handle_interaction():
+	if !immediate_interactable:
+		return
+	var inventory_before = inventory.duplicate()
+	var consumables = immediate_interactable.consumable_items
+	for item in inventory:
+		if item in consumables:
+			inventory.erase(item)
+			break
+	immediate_interactable.interact(inventory_before)
+	inventory_updated.emit(inventory)
 
 func update_player_animation():
 	var direction: Vector2
@@ -166,17 +174,17 @@ func _on_interaction_area_area_entered(area):
 		give_item(area.collectible)
 		area.get_parent().queue_free()
 		
-func set_camera_limits(left, top, right, bottom):
-	$Camera.limit_left = left
-	$Camera.limit_top = top
-	$Camera.limit_right = right
-	$Camera.limit_bottom = bottom
+func set_camera_limits(limits: Dictionary):
+	$Camera.limit_left = limits["left"]
+	$Camera.limit_top = limits["top"]
+	$Camera.limit_right = limits["right"]
+	$Camera.limit_bottom = limits["bottom"]
 
 func _on_interaction_area_area_exited(area):
 	if area == immediate_interactable:
 		immediate_interactable = null
 
-func give_item(item):
+func give_item(item: String):
 	inventory.append(item)
 	item_got.emit(item)
 	inventory_updated.emit(inventory)

@@ -1,6 +1,7 @@
 extends Sprite2D
 
 signal return_item(item: String)
+signal item_placed(correct: bool)
 
 var holdables = {
 	"dagger": load("res://assets/dagger.png"),
@@ -9,20 +10,23 @@ var holdables = {
 	"ring": load("res://assets/ring.png")
 }
 var holding = false
+var current_item: String
 
-@export var holdable: String
-
-func _ready():
-	$Interactable.consumable_item = holdable
+@export var correct_item: String
 
 func _on_interactable_interacted(player_inventory: Array) -> void:
 	if holding:
-		$Interactable.consumable_item = ""
+		return_item.emit(current_item)
+		current_item = ""
 		$HoldableItem.texture = null
-		return_item.emit(holdable)
 		holding = false
+		$Interactable.consumable_items = holdables.keys()
 		return
-	if holdable in player_inventory:
-		$Interactable.consumable_item = holdable
-		$HoldableItem.texture = holdables[holdable]
-		holding = true
+	for item in player_inventory:
+		if item in $Interactable.consumable_items:
+			item_placed.emit(item == correct_item)
+			$HoldableItem.texture = holdables[item]
+			current_item = item
+			holding = true
+			$Interactable.consumable_items = []
+			break
